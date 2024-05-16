@@ -38,24 +38,20 @@ public function __construct($id, $name)
     $this->studentName = $name;
 }
 ```
-- 学生の名前、IDを正しく初期化することで、インスタンスを適切にただしく反映させるために必要だからです。
+- コンストラクター内の2行は、与えられた引数（学生のIDと名前）を使って、学生オブジェクトのプロパティを初期化している。具体的には、$idで受け取ったIDを$this->studentIdに、そして$nameで受け取った名前を$this->studentNameにそれぞれ代入しています。これにより、インスタンスが作られる際に、そのインスタンスの学生IDと名前が設定されます。
 
 ## クラスがなぜ必要なのか説明してください。
 - クラスに関連するデータや操作などを一つにまとめることができるため。
 
 ## `DateTime::modify`メソッドの返り値を教えてください。
-- datatimeは現在の時刻を表すもので、modifyはdatatimeをもとに時刻をいじるものです。
-
-$date = new DateTime('2024-05-13');
-echo '元の日付: ' . $date->format('Y-m-d') . "\n";
-
-$date->modify('+1 day');
-echo '1日後: ' . $date->format('Y-m-d') . "\n";
-
-こういう風にメソッドを使用することで現在の時刻から一日後にしたり指定を変更することで一週間後などいじれるようなメソッドです
+- DateTime::modifyメソッドの返り値は、変更された後のdatatimeオブジェクトを返します。つまるところ、modifyのメソッドを使って日付を変更すると、変更後の日付をもったオブジェクトを返り値として返ってきます。
 
 ## `DateTime::format`メソッドと`DateInterval::format`メソッドの違いを教えてください。
-- DeteTimeは年月日時分秒まで文字列に変換できる。それに対して年月日までdataintervalしか文字列に変換できない
+- DateTime::formatメソッドとDateInterval::formatメソッドの違いは、下に箇条書きで二つに分けて書きます
+↓
+・DateTime::formatメソッドは日付や時刻を指定した形式に変えてくれます。年月日時分秒まで取得してくれます。
+
+・DateInterval::formatメソッドは、期間を指定した形式に変換してくれますが、日付の部分までしか変換できません。時間秒数はDateTimeでしかできない要素です。
 
 ## 下記コード3行目のformatメソッドの返り値をPHPのマニュアルから調べる手順を具体的に説明してください。
 ```
@@ -65,3 +61,11 @@ echo $prev->diff($now)->format('%a')
 ```
 
 - PHPのマニュアルにアクセスして、ページ内構文のdiff(差分)に飛んでpublic DateTime::diff ( DateTimeInterface $targetObject , bool $absolute =false ): DateIntervalなので返り値がDateIntervalと分かります。DateInterval：formatを調べる→　URL　https://www.php.net/manual/en/dateinterval.format.php  これにより％が日数を表すフォーマットだとわかるので$prevと$nowの日数の差を表示することができます。
+
+修正内容がこちら
+レビュー問題2
+「下記コード3行目のformatメソッドの返り値をPHPのマニュアルから調べる手順を具体的に説明してください。」について
+
+追加で、上記のformatメソッドの返り値のデータ型も記載しておいて欲しいです！
+
+答えとして文字列型（strung）です。
